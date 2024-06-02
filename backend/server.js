@@ -8,12 +8,28 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import attendanceRoutes from "./routes/attendenceRoutes.js";
 import leaveRequest from "./routes/leaveRoutes.js";
+import cors from "cors";
 dotenv.config();
 
 connectDB();
 
 const app = express();
 app.use(express.json()); // Parsing http request body
+
+const corsOptions = {
+  origin: "https://hrms-sigmoid.vercel.app",
+  credentials: true, // if you're using cookies or sessions
+};
+
+app.use(cors(corsOptions));
+
+app.options("/test-cors", cors(corsOptions), (req, res) => {
+  res.status(200).send("CORS enabled");
+});
+
+app.get("/test-cors", cors(corsOptions), (req, res) => {
+  res.status(200).send("CORS enabled");
+});
 
 app.use("/api/users", userRoutes);
 app.use("/api/attendance", attendanceRoutes);
