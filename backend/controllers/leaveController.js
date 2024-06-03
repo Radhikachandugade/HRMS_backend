@@ -60,28 +60,28 @@ const updatePendingLeaves = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findById(leaveRequest.user._id);
-  // console.log("before",user.leaveCount)
+  /* console.log("before",user.leaveCount)*/
   if (pendingLeaves === "Approved") {
     const startDate = new Date(leaveRequest.startDate);
     const endDate = new Date(leaveRequest.endDate);
-    // Calculating the time difference
+    /* Calculating the time differenc*/
     const differenceInTime = endDate.getTime() - startDate.getTime();
 
-    // Calculating the no. of days between two dates, including both start and end dates
+    /* Calculating the no. of days between two dates, including both start and end dates*/
     const differenceInDays =
       Math.round(differenceInTime / (1000 * 3600 * 24)) + 1;
     console.log(differenceInDays);
-    // Assuming user.leaveCount is a string, convert it to a number
+    /* Assuming user.leaveCount is a string, convert it to a number*/
     const leaveCount = parseInt(user.leaveCount);
-    console.log("actualCount",leaveCount)
+    console.log("actualCount", leaveCount);
     console.log(leaveCount - differenceInDays);
-    // Subtract the difference from leaveCount and update leaveRequest.pendingLeaves
+    /* Subtract the difference from leaveCount and update leaveRequest.pendingLeaves*/
     leaveRequest.pendingLeaves = (leaveCount - differenceInDays).toString();
 
     if (leaveCount >= differenceInDays) {
-      user.leaveCount = leaveCount - differenceInDays
-     const updatedUser= await user.save();
-     console.log("updatedUSer",updatedUser.leaveCount)
+      user.leaveCount = leaveCount - differenceInDays;
+      const updatedUser = await user.save();
+      console.log("updatedUSer", updatedUser.leaveCount);
     } else {
       res.status(400);
       throw new Error("Insufficient leave balance");

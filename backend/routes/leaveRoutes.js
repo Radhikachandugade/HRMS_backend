@@ -14,7 +14,7 @@ router
   .post(protect, createLeaveRequest)
   .get(protect, getLeaveRequests);
 
-router.route("/allrequest").get(protect,admin, getAllLeaveRequests);
+router.route("/allrequest").get(protect, admin, getAllLeaveRequests);
 router.route("/:id/status").put(protect, updatePendingLeaves);
 
 export default router;

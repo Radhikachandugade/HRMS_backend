@@ -13,11 +13,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(express.json()); // Parsing http request body
+app.use(express.json()); /*Parsing http request body*/
 
 const corsOptions = {
   origin: "https://hrms-sigmoid.vercel.app",
-  credentials: true, // if you're using cookies or sessions
+  credentials: true /* if you're using cookies or sessions*/,
 };
 
 app.use(cors(corsOptions));

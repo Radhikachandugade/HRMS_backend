@@ -110,11 +110,11 @@ export const markLogout = asyncHandler(async (req, res) => {
 export const getTodaysAttendance = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
-  // Get today's date
+  /* Get today's date*/
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Find a single attendance record for the current user for today's date
+  /* Find a single attendance record for the current user for today's date*/
   const attendance = await Attendance.findOne({
     userId,
     loginTime: { $gte: today },
@@ -122,27 +122,24 @@ export const getTodaysAttendance = asyncHandler(async (req, res) => {
 
   console.log(attendance);
 
-  // Send the attendance record as an object, or an empty object if no record is found
+  /*Send the attendance record as an object, or an empty object if no record is found*/
   res.json(attendance || {});
 });
 
 export const getAllAttendance = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
-  // Find all attendance records for the current user
+  /* Find all attendance records for the current user*/
   const allAttendance = await Attendance.find({ userId });
 
-  // Send the array of attendance records
+  /* Send the array of attendance records*/
   res.json(allAttendance);
 });
 
-
 export const getAllUsersAttendance = asyncHandler(async (req, res) => {
+  /* Find all attendance records for the current user*/
+  const allAttendance = await Attendance.find({});
 
-
-  // Find all attendance records for the current user
-  const allAttendance = await Attendance.find({ });
-
-  // Send the array of attendance records
+  /* Send the array of attendance records*/
   res.json(allAttendance);
 });
